@@ -66,6 +66,17 @@
 		</ul>
 
 		<h3 class="center">Ciphrixa Crypto</h3>
+
+		<div id="notification" class="hidden">
+		  	<p id="message"></p>
+		  	<button id="close-button" onClick="closeNotification()">
+		    	Close
+		  	</button>
+		  	<button id="restart-button" onClick="restartApp()" class="hidden">
+		    	Restart
+		  	</button>
+		</div>
+
 		<div class="container">
 			<h5>Encrypt String</h5>
 			<input type="text" id="enc_str_input" placeholder="Enter String"> <input type="text" id="enc_str_input_key" placeholder="Enter Key">

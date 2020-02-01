@@ -3,6 +3,7 @@ const url = require("url");
 const path = require("path");
 const fs = require("fs");
 
+const { autoUpdater } = require('electron-updater');
 const { app, BrowserWindow, Menu, dialog, ipcMain } = electron;
 let win;
 
@@ -24,8 +25,12 @@ function createWindow() {
 	});
 
 	//Build Menu
-	//const mainMenu = Menu.buildFromTemplate(menuTemplate);
-	//Menu.setApplicationMenu(mainMenu);
+	const mainMenu = Menu.buildFromTemplate(menuTemplate);
+	Menu.setApplicationMenu(mainMenu);
+
+	win.once('ready-to-show', () => {
+  		autoUpdater.checkForUpdatesAndNotify();
+	});
 }
 
 //Menu Template
@@ -92,4 +97,14 @@ ipcMain.on('request-mainprocess-action', (event, arg) => {
 	        console.log("File Saved");
 	    });
     }
+});
+
+autoUpdater.on('update-available', () => {
+  	win.webContents.send('update_available');
+});
+autoUpdater.on('update-downloaded', () => {
+  	win.webContents.send('update_downloaded');
+});
+ipcMain.on('restart_app', () => {
+  	autoUpdater.quitAndInstall();
 });
