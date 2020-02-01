@@ -2,6 +2,7 @@ const { ipcRenderer, remote } = require('electron');
 const Cryptr = require('cryptr');
 dialog = remote.dialog;
 
+//Encrypt String
 function encryptString() {
 	var inp = document.getElementById("enc_str_input").value;
 	var key = document.getElementById("enc_str_input_key").value;
@@ -15,9 +16,10 @@ function encryptString() {
 	var cr = new Cryptr(key);
     var enc = cr.encrypt(inp);
 	out.innerHTML = enc;
-	M.toast({html: "String Encrypted"});
+	M.toast({html: "<i class='material-icons left'>done</i> String Encrypted"});
 }
 
+//Decrypt String
 function decryptString() {
 	var inp = document.getElementById("dec_str_input").value;
 	var key = document.getElementById("dec_str_input_key").value;
@@ -33,12 +35,14 @@ function decryptString() {
     	var dec = cr.decrypt(inp);
     } catch(e) {
     	M.toast({html: "<i class='material-icons left'>error</i> String failed to Decrypt: Wrong Key"});
+    	out.innerHTML = "Failed to Decrypt";
     	return;
     }
 	out.innerHTML = dec;
-	M.toast({html: "String Decrypted"});
+	M.toast({html: "<i class='material-icons left'>done</i> String Decrypted"});
 }
 
+//Encrypt File
 function encryptFile() {
 	var inp = document.getElementById("enc_file_input").files[0];
 	var key = document.getElementById("enc_file_input_key").value;
@@ -63,7 +67,7 @@ function encryptFile() {
 		};
 
 		ipcRenderer.send('request-mainprocess-action', Data);
-		M.toast({html: "File Encrypted"});
+		M.toast({html: "<i class='material-icons left'>done</i> File Encrypted"});
 
     }
     reader.onerror = function (evt) {
@@ -72,6 +76,7 @@ function encryptFile() {
     }
 }
 
+//Decrypt File
 function decryptFile() {
 	var inp = document.getElementById("dec_file_input").files[0];
 	var key = document.getElementById("dec_file_input_key").value;
@@ -102,7 +107,7 @@ function decryptFile() {
 		};
 
 		ipcRenderer.send('request-mainprocess-action', Data);
-		M.toast({html: "File Decrypted"});
+		M.toast({html: "<i class='material-icons left'>done</i> File Decrypted"});
 
     }
     reader.onerror = function (evt) {
@@ -111,8 +116,7 @@ function decryptFile() {
     }
 }
 
-
-
+//AUTO UPDATER
 const notification = document.getElementById('notification');
 const message = document.getElementById('message');
 const restartButton = document.getElementById('restart-button');

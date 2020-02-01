@@ -43,10 +43,12 @@
 
 		<ul id="slide-out" class="sidenav">
 			<li><a class="subheader">Info</a></li>
-			<li><a href="#!">Eclip5eNation</a></li>
+			<li><a href="https://eclip5e.bplaced.net">Eclip5eNation</a></li>
 			<li><div class="divider"></div></li>
 			<li><a class="subheader">Links</a></li>
-			<li><a href="#!">Unknown</a></li>
+			<li><a href="https://eclip5e.bplaced.net">Homepage</a></li>
+			<li><a href="https://twitter.com/Eclip5eLP">Twitter</a></li>
+			<li><a href="https://www.youtube.com/channel/UCXO-H6pP3voHFBEtBHC-EXw">Youtube</a></li>
 			<li><div class="divider"></div></li>
 			<li>
 				<form>
@@ -81,13 +83,19 @@
 			<h5>Encrypt String</h5>
 			<input type="text" id="enc_str_input" placeholder="Enter String"> <input type="text" id="enc_str_input_key" placeholder="Enter Key">
 			<button class="waves-effect waves-light btn" onclick="encryptString();"><i class="material-icons left">vpn_key</i>Encrypt</button>
-			<textarea class="materialize-textarea" id="enc_str_output" placeholder="Output" readonly></textarea>
+			<ul class="collapsible"><li>
+			    <div class="collapsible-header"><i class="material-icons">filter_drama</i>Output</div>
+			    <div class="collapsible-body"><span id="enc_str_output" style="overflow-wrap: break-word;"></span></div>
+			</li></ul>
 		</div><br>
 		<div class="container">
 			<h5>Decrypt String</h5>
 			<input type="text" id="dec_str_input" placeholder="Enter String"> <input type="text" id="dec_str_input_key" placeholder="Enter Key">
 			<button class="waves-effect waves-light btn" onclick="decryptString();"><i class="material-icons left">vpn_key</i>Decrypt</button>
-			<textarea class="materialize-textarea" id="dec_str_output" placeholder="Output" readonly></textarea>
+			<ul class="collapsible"><li>
+			    <div class="collapsible-header"><i class="material-icons">filter_drama</i>Output</div>
+			    <div class="collapsible-body"><span id="dec_str_output" style="overflow-wrap: break-word;"></span></div>
+			</li></ul>
 		</div><br>
 		<div class="container">
 			<h5>Encrypt File</h5>
@@ -124,8 +132,13 @@
 		</footer>
 	</body>
 	<script>
+		//Init Sidebar
 		$(document).ready(function(){
 		   	$('.sidenav').sidenav();
+		});
+		//Init Collapsible Output
+		$(document).ready(function(){
+		    $('.collapsible').collapsible();
 		});
 		
 		/* Theme Switcher */

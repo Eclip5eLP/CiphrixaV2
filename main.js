@@ -18,8 +18,6 @@ function createWindow() {
 	});
 	win.loadFile("index.html");
 
-	//win.webContents.openDevTools();
-
 	win.on("closed", () => {
 		win = null;
 	});
@@ -36,7 +34,7 @@ function createWindow() {
 //Menu Template
 const menuTemplate = [
 	{
-		label: "File",
+		label: "Options",
 		submenu: [
 			{
 				label: "Console",
@@ -46,10 +44,59 @@ const menuTemplate = [
 				}
 			},
 			{
+				label: "Reload",
+				accelerator: process.platform == "darwin" ? "Command+R" : "Ctrl+R",
+				click() {
+					win.webContents.reload();
+				}
+			},
+			{ type: "separator" },
+			{
 				label: "Quit",
 				accelerator: process.platform == "darwin" ? "Command+Q" : "Ctrl+Q",
 				click() {
 					app.quit();
+				}
+			}
+		]
+	},
+	{
+		label: "Edit",
+		submenu: [
+			{
+				label: "Undo",
+				accelerator: process.platform == "darwin" ? "Command+Z" : "Ctrl+Z",
+				click() {
+					win.webContents.undo();
+				}
+			},
+			{
+				label: "Redo",
+				accelerator: process.platform == "darwin" ? "Command+Y" : "Ctrl+Y",
+				click() {
+					win.webContents.redo();
+				}
+			},
+			{ type: "separator" },
+			{
+				label: "Cut",
+				accelerator: process.platform == "darwin" ? "Command+X" : "Ctrl+X",
+				click() {
+					win.webContents.cut();
+				}
+			},
+			{
+				label: "Copy",
+				accelerator: process.platform == "darwin" ? "Command+C" : "Ctrl+C",
+				click() {
+					win.webContents.copy();
+				}
+			},
+			{
+				label: "Paste",
+				accelerator: process.platform == "darwin" ? "Command+V" : "Ctrl+V",
+				click() {
+					win.webContents.paste();
 				}
 			}
 		]
