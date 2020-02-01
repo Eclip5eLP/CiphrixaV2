@@ -39,10 +39,11 @@ const menuTemplate = [
 		label: "File",
 		submenu: [
 			{
-				label: "Load File"
-			},
-			{
-				label: "Label 2"
+				label: "Console",
+				accelerator: process.platform == "darwin" ? "Command+I" : "Ctrl+I",
+				click() {
+					win.webContents.openDevTools();
+				}
 			},
 			{
 				label: "Quit",
