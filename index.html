@@ -1,0 +1,137 @@
+<html>
+	<head>
+		<title>Ciphrixa V2</title>
+		<script src="jquery-3.4.1.min.js"></script>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<link href="style.css" rel="stylesheet">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+		<script src="ciphrixa.js"></script>
+		<script src="penumbra.js"></script>
+		<script>document.documentElement.setAttribute('data-theme','dark')</script>
+
+		<!-- Themes -->
+		<link href="https://staticresource.com/template/css/themes/swiss.css" rel="stylesheet">
+		<link href="https://staticresource.com/template/css/themes/green.css" rel="stylesheet">
+		<link href="https://staticresource.com/template/css/themes/rfi.css" rel="stylesheet">
+		<link href="https://staticresource.com/template/css/themes/preston.css" rel="stylesheet">
+		<link href="https://staticresource.com/template/plugins/form/form.css" rel="stylesheet">
+
+		<style>
+			select {
+			  	float: none !important;
+			  	display: block;
+			  	max-width: 300px;
+			  	margin: 0 auto !important;
+			}
+			form {
+			  	margin: 0 0 3em 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="navbar-fixed">
+			<nav>
+				<div class="nav-wrapper">
+					<a href="#" data-target="slide-out" class="sidenav-trigger show-on-large"><i class="material-icons">menu</i></a>
+					<a class="brand-logo center">Ciphrixa</a>
+				</div>
+			</nav>
+		</div>
+
+		<ul id="slide-out" class="sidenav">
+			<li><a class="subheader">Info</a></li>
+			<li><a href="#!">Eclip5eNation</a></li>
+			<li><div class="divider"></div></li>
+			<li><a class="subheader">Links</a></li>
+			<li><a href="#!">Unknown</a></li>
+			<li><div class="divider"></div></li>
+			<li>
+				<form>
+				  	<select onchange="switchTheme(false)" data-persist>
+				    	<option>Select a Theme</option>
+				    	<option value=default>Default</option>
+				    	<option value=code>Code</option>
+				    	<option value=dark>Dark</option>
+				    	<option value=book>Book</option>
+				    	<option value=swiss>Swiss</option>
+				    	<option value=green>Green</option>
+				    	<option value=rfi>RFI</option>
+				    	<option value=preston>Preston</option>
+				  	</select>
+				</form>
+			</li>
+		</ul>
+
+		<h3 class="center">Ciphrixa Crypto</h3>
+		<div class="container">
+			<h5>Encrypt String</h5>
+			<input type="text" id="enc_str_input" placeholder="Enter String"> <input type="text" id="enc_str_input_key" placeholder="Enter Key">
+			<button class="waves-effect waves-light btn" onclick="encryptString();"><i class="material-icons left">vpn_key</i>Encrypt</button>
+			<textarea class="materialize-textarea" id="enc_str_output" placeholder="Output" readonly></textarea>
+		</div><br>
+		<div class="container">
+			<h5>Decrypt String</h5>
+			<input type="text" id="dec_str_input" placeholder="Enter String"> <input type="text" id="dec_str_input_key" placeholder="Enter Key">
+			<button class="waves-effect waves-light btn" onclick="decryptString();"><i class="material-icons left">vpn_key</i>Decrypt</button>
+			<textarea class="materialize-textarea" id="dec_str_output" placeholder="Output" readonly></textarea>
+		</div><br>
+		<div class="container">
+			<h5>Encrypt File</h5>
+			<div class="file-field input-field">
+      			<div class="btn">
+        			<span><i class="material-icons left">add_box</i>File</span>
+        			<input type="file" id="enc_file_input">
+      			</div>
+      			<div class="file-path-wrapper">
+        			<input class="file-path validate" type="text">
+      			</div>
+    		</div>
+    		<input type="text" id="enc_file_input_key" placeholder="Enter Key">
+    		<button class="waves-effect waves-light btn" onclick="encryptFile();"><i class="material-icons left">vpn_key</i>Encrypt</button>
+		</div><br>
+		<div class="container">
+			<h5>Decrypt File</h5>
+			<div class="file-field input-field">
+      			<div class="btn">
+        			<span><i class="material-icons left">add_box</i>File</span>
+        			<input type="file" id="dec_file_input">
+      			</div>
+      			<div class="file-path-wrapper">
+        			<input class="file-path validate" type="text">
+      			</div>
+    		</div>
+    		<input type="text" id="dec_file_input_key" placeholder="Enter Key">
+    		<button class="waves-effect waves-light btn" onclick="decryptFile();"><i class="material-icons left">vpn_key</i>Decrypt</button>
+		</div><br>
+		<footer class="page-footer">
+        	<div class="container">
+        		© 2020 Eclip5eNation
+        	</div>
+		</footer>
+	</body>
+	<script>
+		$(document).ready(function(){
+		   	$('.sidenav').sidenav();
+		});
+		
+		/* Theme Switcher */
+		function switchTheme(reload) {
+		  	var theme = document.querySelector('select').value;
+		  	document.documentElement.setAttribute('data-theme', theme);
+		  	if (reload) location.reload();
+		}
+		/* Persisting Data Plugin */
+		var field = document.querySelectorAll('[data-persist]');
+		for (i = 0; i < field.length; i++){
+		  	var stored = localStorage.getItem(field[i].getAttribute('data-persist'));
+		  	if (stored) field[i].value = stored
+		  	field[i].addEventListener('input',function() {
+		    	localStorage.setItem(this.getAttribute('data-persist'),this.value);
+		  	});
+		}
+		switchTheme(false);
+	</script>
+</html>
