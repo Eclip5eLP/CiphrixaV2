@@ -10,7 +10,7 @@
   "license": "MIT",
   "dependencies": {
     "cryptr": "^6.0.1",
-    "electron": "^7.1.11",
+    "electron": "^18.3.7",
     "electron-builder": "^22.3.2",
     "electron-updater": "^4.2.0"
   }
